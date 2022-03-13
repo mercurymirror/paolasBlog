@@ -1,32 +1,38 @@
 import { React, useEffect } from "react"
 import Link from "next/link"
 import NextImage from "./image"
+import gsap from "gsap";
 
-const animColor = "#FF006E";
-const decorColor = "#FFBE0B";
-const illuColor = "#3A86FF";
+const colorMap = {
+  "animation": "#A72608",
+  "decor": "#E0AFA0",
+  "illustrations": "#32936F",
+  "developpement-visuel": "#C2FCF7",
+  "realisations": "#FEEA00",
+  "croquis": "#9F6BA0"
+};
 
 const Card = ({ article, categories }) => {
 
   useEffect(() => {
-    const overlay = document.getElementById("overlay");
-
-    article.attributes.categories.data.forEach(category => {
-        console.log(category.attributes.slug)
-        if (category.attributes.slug === "animation") {
-          overlay.style.backgroundColor = animColor;
-        }
-        if (category.attributes.slug === "decor") {
-          overlay.style.backgroundColor = decorColor;
-        }
-        if (category.attributes.slug === "illustrations") {
-          overlay.style.backgroundColor = illuColor;
-
-        }
-
-    });
-
-  }, []);
+gsap.fromTo('.card', {
+  yPercent: 100
+}, {
+  duration: 2,
+  yPercent: 0,
+})
+gsap.fromTo('.card img', {
+  yPercent: -100
+}, {
+  duration: 2,
+  yPercent: 0,
+})
+gsap.from('.overlay-color', {
+  duration: 2,
+  delay: 2,
+  display: "none",
+})
+  })
 
   return (
     <Link href={`/article/${article.attributes.slug}`}>
@@ -35,15 +41,23 @@ const Card = ({ article, categories }) => {
           <div className="media">
             <NextImage image={article.attributes.image} />
           </div>
-          <div id="overlay" className="overlay-color"></div>
-          <div className="card-body flex items-end justify-center pb-5">
-            <p className="text-xl px-2 uppercase text-center text-white">
-              {article.attributes.title}
-            </p>
-          </div>
+        <div className="card-body flex items-end justify-center pb-5">
+          <p className="text-xl px-2 uppercase text-center text-white font-light">
+            {article.attributes.title}
+          </p>
         </div>
-      </a>
-    </Link>
+        {article.attributes.categories.data.map((category) => {
+              return (
+          <div className="overlay-color hidden md:block"
+          key={category.id}
+            style=
+              { { backgroundColor: colorMap[category.attributes.slug] } }
+          ></div>
+          )
+        })}
+      </div>
+    </a>
+    </Link >
   )
 }
 

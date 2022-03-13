@@ -7,8 +7,11 @@ a {
 }
 
 h1 {
-  font-family: Staatliches;
-  font-size: 120px;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-top: 1rem;
 }
 
 #category {

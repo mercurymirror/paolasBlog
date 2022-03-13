@@ -1,4 +1,8 @@
+$mainColor: #000000;
 
+html, body {
+    color: $mainColor;
+}
 //header
 .catergories-btn {
     display: flex;
@@ -19,7 +23,7 @@
         position: relative;
         top: 0;
         left: 0;
-        z-index: 10;
+        z-index: 100;
         padding: 0 5vw;
         display: flex;
         justify-content: space-between;
@@ -31,10 +35,16 @@
             text-align: center;
             button {
                 border: none;
-                background: none;
                 outline: none;
                 cursor: pointer;
                 font-weight: 600;
+                background-color: #70dbc0;
+                min-width: 3rem;
+                min-height: 3rem;
+                transform: rotate(-15deg);
+                a {
+                    line-height: 2rem;
+                }
             }
             .menuBtn {
                 svg {
@@ -43,11 +53,15 @@
                 }
             }
         }
+        .logo {
+            opacity: 1;
+            letter-spacing: .2em;  
+        }
     }
     // hamburger menu or navigation
     .hamburger-menu {
         display: none;
-        z-index: 9;
+        z-index:15;
         top: 0;
         bottom: 0;
         left: 0;
@@ -119,7 +133,6 @@
     width: 100%;
     opacity: .5;
     transition: .5s ease;
-    background-color: beige;
     z-index: 10;
     &:hover {
         opacity: 0;

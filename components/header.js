@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Hamburger from "./hamburger";
-
+import gsap from "gsap";
 
 
 const Header = ({ homepage, categories }) => {
@@ -30,6 +30,7 @@ const Header = ({ homepage, categories }) => {
       router.events.off("routeChangeStart", handleRouteChange);
     };
   }, []);
+
   const handleMenu = () => {
     disabledMenu();
     if (state.initial === false) {
@@ -38,16 +39,31 @@ const Header = ({ homepage, categories }) => {
         clicked: true,
         menuName: "Close",
       });
+      gsap.to('.menu button', {
+        duration: 1,
+        rotate: '20deg',
+        ease: "Power1.easeInOut",
+      })
     } else if (state.clicked === true) {
       setState({
         clicked: !state.clicked,
         menuName: "Menu",
       });
+      gsap.to('.menu button', {
+        duration: 1,
+        rotate: '-20deg',
+        ease: "Power1.easeInOut",
+      })
     } else if (state.clicked === false) {
       setState({
         clicked: !state.clicked,
         menuName: "Close",
       });
+      gsap.to('.menu button', {
+        duration: 1,
+        rotate: '20deg',
+        ease: "Power1.easeInOut",
+      })
     }
   };
 
@@ -59,7 +75,22 @@ const Header = ({ homepage, categories }) => {
     }, 1200);
   };
 
-  return (
+  useEffect(() => {
+    const hasPlayed = sessionStorage.getItem("hasMyAnimationPlayed");
+ console.log(hasPlayed);
+if (!hasPlayed) {
+
+  gsap.from('.logo', {
+    duration: 1,
+    letterSpacing: '.6em',
+    onComplete: function() {
+      sessionStorage.setItem("hasMyAnimationPlayed", true);
+    }
+  });
+}
+}, []);
+
+return (
     <header className="md:hidden">
       <div className="container-burger">
         <div className="wrapper">
@@ -68,13 +99,16 @@ const Header = ({ homepage, categories }) => {
               <button
                 disabled={disabled}
                 onClick={handleMenu}
+                className="rounded-full bg-black"
               >
-                <a className="menuBtn">
-Menu
+                <a className="menuBtn text-white text-xs">
+{state.menuName}
                   </a>
               </button>
             </div>
-            <h3 className="text-xl uppercase tracking-widest mb-4">{homepage.attributes.hero.title}</h3>
+            <a href="/">
+            <h3 id="logo" className="logo text-xl uppercase mb-4">{homepage.attributes.hero.title}</h3>
+            </a>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/dist/client/link";
 import gsap from "gsap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../lib/fontawesome';
 
 const Hamburger = ({ state, categories }) => {
   //vars for our animated DOM nodes
@@ -107,6 +109,11 @@ const Hamburger = ({ state, categories }) => {
               </nav>
             </div>
           </div>
+          <footer className="absolute bottom-8 w-full md:hidden grid grid-cols-footer gap-4 place-content-start pl-20">
+                <FontAwesomeIcon icon="fa-brands fa-youtube" />
+                <FontAwesomeIcon icon="fa-brands fa-vimeo-v" />
+                <FontAwesomeIcon icon="fa-brands fa-linkedin" />
+            </footer>
         </div>
       </div>
     </div>
